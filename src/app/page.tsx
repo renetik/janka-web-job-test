@@ -28,6 +28,9 @@ export default function Dashboard() {
     "bg-indigo-600",
   ];
 
+  // State for buttons per tab
+  const [tabButtons, setTabButtons] = useState<{ [tabId: number]: { id: number; label: string }[] }>({});
+
   const handleAddTab = () => {
     const nextId = tabs.length ? Math.max(...tabs.map(t => t.id)) + 1 : 1;
     const color = TAB_COLORS[nextId % TAB_COLORS.length];
@@ -39,6 +42,19 @@ export default function Dashboard() {
     setTabs([...tabs, newTab]);
     setActiveTab(newTab.id);
   };
+
+  // Add a new button to the active tab
+  const handleAddButton = () => {
+    setTabButtons((prev) => {
+      const current = prev[activeTab] || [];
+      const nextId = current.length ? Math.max(...current.map(b => b.id)) + 1 : 1;
+      const newButton = { id: nextId, label: `Trigger Button ${nextId.toString().padStart(2, '0')}` };
+      return { ...prev, [activeTab]: [...current, newButton] };
+    });
+  };
+
+  // Get buttons for the active tab
+  const buttons = tabButtons[activeTab] || [];
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-2 sm:px-8">
@@ -57,9 +73,23 @@ export default function Dashboard() {
         {/* Add new tab button (UI only for now) */}
         <button onClick={handleAddTab} className="px-4 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold shadow hover:bg-gray-300 transition-all">+</button>
       </div>
-      {/* Main grid area placeholder */}
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center justify-center border border-gray-200">
-        <span className="text-gray-400 text-lg">Grid of trigger buttons will go here...</span>
+      {/* Main grid area */}
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center border border-gray-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+          {buttons.map((button) => (
+            <div key={button.id} className="flex flex-col items-center justify-center bg-blue-100 rounded-xl p-6 min-h-[100px] shadow">
+              <span className="font-semibold text-blue-900">{button.label}</span>
+            </div>
+          ))}
+          {/* Add button cell */}
+          <button
+            onClick={handleAddButton}
+            className="flex flex-col items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-xl p-6 min-h-[100px] shadow text-4xl text-gray-500 font-bold transition-all"
+            aria-label="Add trigger button"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );
