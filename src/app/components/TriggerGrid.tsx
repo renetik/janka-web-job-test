@@ -11,7 +11,7 @@ import {
   arrayMove,
   SortableContext,
   useSortable,
-  verticalListSortingStrategy,
+  rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TriggerButtonCard } from "./TriggerButtonCard";
@@ -43,7 +43,7 @@ export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReor
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext items={buttons.map((b) => b.id)} strategy={verticalListSortingStrategy}>
+      <SortableContext items={buttons.map((b) => b.id)} strategy={rectSortingStrategy}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
           {buttons.map((button, idx) => (
             <TriggerButtonCard
