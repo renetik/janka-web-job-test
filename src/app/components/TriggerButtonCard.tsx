@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UseSortableArguments, useSortable } from "@dnd-kit/sortable";
+import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TriggerButton } from "./TriggerGrid";
 
@@ -42,29 +42,54 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
-      className="flex flex-col items-center justify-center bg-blue-100 rounded-xl p-6 min-h-[100px] shadow cursor-move select-none"
+      className="flex flex-row items-center justify-between bg-blue-100 rounded-xl min-h-[100px] shadow select-none relative p-0"
     >
-      {editing ? (
-        <input
-          className="font-semibold text-blue-900 bg-white rounded px-2 py-1 w-full text-center outline-none border border-blue-300 focus:border-blue-500"
-          value={value}
-          autoFocus
-          onChange={e => setValue(e.target.value)}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          maxLength={32}
-        />
-      ) : (
-        <span
-          className="font-semibold text-blue-900 cursor-pointer w-full text-center"
-          onClick={() => setEditing(true)}
-          title="Click to rename"
+      <div className="flex-1 flex flex-col items-center justify-center p-6">
+        {editing ? (
+          <input
+            className="font-semibold text-blue-900 bg-white rounded px-2 py-1 w-full text-center outline-none border border-blue-300 focus:border-blue-500"
+            value={value}
+            autoFocus
+            onChange={e => setValue(e.target.value)}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            maxLength={32}
+          />
+        ) : (
+          <span
+            className="font-semibold text-blue-900 cursor-pointer w-full text-center"
+            onClick={() => setEditing(true)}
+            title="Click to rename"
+          >
+            {button.label}
+          </span>
+        )}
+        {/* Action button below the title */}
+        <button
+          className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded shadow text-sm font-semibold transition-colors"
+          onClick={() => alert(`${button.label} clicked`)}
         >
-          {button.label}
-        </span>
-      )}
+          Action
+        </button>
+      </div>
+      {/* Drag handle on the right */}
+      <button
+        type="button"
+        className="flex flex-col justify-center items-center px-2 py-4 bg-blue-200 hover:bg-blue-300 rounded-r-xl cursor-grab active:cursor-grabbing transition-colors h-full"
+        style={{ minWidth: 32 }}
+        {...attributes}
+        {...listeners}
+        tabIndex={-1}
+        aria-label="Drag to reorder"
+      >
+        {/* Vertical dots */}
+        <svg width="16" height="48" viewBox="0 0 16 48" fill="none">
+          <circle cx="8" cy="8" r="2" fill="#2563eb" />
+          <circle cx="8" cy="20" r="2" fill="#2563eb" />
+          <circle cx="8" cy="32" r="2" fill="#2563eb" />
+          <circle cx="8" cy="44" r="2" fill="#2563eb" />
+        </svg>
+      </button>
     </div>
   );
 } 
