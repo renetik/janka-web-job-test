@@ -76,7 +76,13 @@ export default function Dashboard() {
       </div>
       {/* Main grid area */}
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center border border-gray-200">
-        <TriggerGrid buttons={buttons} onAdd={handleAddButton} />
+        <TriggerGrid
+          buttons={buttons}
+          onAdd={handleAddButton}
+          onReorder={(newButtons) =>
+            setTabButtons((prev) => ({ ...prev, [activeTab]: newButtons }))
+          }
+        />
       </div>
     </div>
   );
