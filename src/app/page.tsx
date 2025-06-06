@@ -82,6 +82,14 @@ export default function Dashboard() {
           onReorder={(newButtons) =>
             setTabButtons((prev) => ({ ...prev, [activeTab]: newButtons }))
           }
+          onRenameButton={(id, newLabel) =>
+            setTabButtons((prev) => ({
+              ...prev,
+              [activeTab]: (prev[activeTab] || []).map((btn) =>
+                btn.id === id ? { ...btn, label: newLabel } : btn
+              ),
+            }))
+          }
         />
       </div>
     </div>

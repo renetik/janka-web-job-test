@@ -25,9 +25,10 @@ interface TriggerGridProps {
   buttons: TriggerButton[];
   onAdd: () => void;
   onReorder: (buttons: TriggerButton[]) => void;
+  onRenameButton: (id: number, newLabel: string) => void;
 }
 
-export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder }) => {
+export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder, onRenameButton }) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -45,7 +46,12 @@ export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReor
       <SortableContext items={buttons.map((b) => b.id)} strategy={verticalListSortingStrategy}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
           {buttons.map((button, idx) => (
-            <TriggerButtonCard key={button.id} button={button} index={idx} />
+            <TriggerButtonCard
+              key={button.id}
+              button={button}
+              index={idx}
+              onRename={(newLabel) => onRenameButton(button.id, newLabel)}
+            />
           ))}
           {/* Add button cell */}
           <button
