@@ -69,7 +69,7 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
           className="mt-4 px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full shadow text-lg font-bold transition-colors"
           onClick={() => alert(`${button.label} clicked`)}
         >
-          {'>>'}
+          {' > > '}
         </button>
       </div>
       {/* Drag handle on the right */}
