@@ -14,6 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { TriggerButtonCard } from "./TriggerButtonCard";
 
 export interface TriggerButton {
   id: number;
@@ -24,27 +25,6 @@ interface TriggerGridProps {
   buttons: TriggerButton[];
   onAdd: () => void;
   onReorder: (buttons: TriggerButton[]) => void;
-}
-
-function SortableItem({ button, index }: { button: TriggerButton; index: number }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: button.id });
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    zIndex: isDragging ? 10 : undefined,
-    opacity: isDragging ? 0.7 : 1,
-  };
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="flex flex-col items-center justify-center bg-blue-100 rounded-xl p-6 min-h-[100px] shadow cursor-move select-none"
-    >
-      <span className="font-semibold text-blue-900">{button.label}</span>
-    </div>
-  );
 }
 
 export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder }) => {
@@ -65,7 +45,7 @@ export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReor
       <SortableContext items={buttons.map((b) => b.id)} strategy={verticalListSortingStrategy}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
           {buttons.map((button, idx) => (
-            <SortableItem key={button.id} button={button} index={idx} />
+            <TriggerButtonCard key={button.id} button={button} index={idx} />
           ))}
           {/* Add button cell */}
           <button
