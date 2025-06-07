@@ -60,38 +60,41 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-2 sm:px-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-700">Dashboard Layout</h1>
-      {/* Tabs */}
-      <div className="flex gap-3 mb-8 flex-wrap">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={`px-6 py-2 rounded-xl text-white font-semibold shadow transition-all ${tab.color} ${activeTab === tab.id ? 'ring-4 ring-offset-2 ring-gray-300' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-        {/* Add new tab button (UI only for now) */}
-        <button onClick={handleAddTab} className="px-4 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold shadow hover:bg-gray-300 transition-all">+</button>
-      </div>
-      {/* Main grid area */}
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center border border-gray-200">
-        <TriggerGrid
-          buttons={buttons}
-          onAdd={handleAddButton}
-          onReorder={(newButtons) =>
-            setTabButtons((prev) => ({ ...prev, [activeTab]: newButtons }))
-          }
-          onRenameButton={(id, newLabel) =>
-            setTabButtons((prev) => ({
-              ...prev,
-              [activeTab]: (prev[activeTab] || []).map((btn) =>
-                btn.id === id ? { ...btn, label: newLabel } : btn
-              ),
-            }))
-          }
-          color={tabs.find(tab => tab.id === activeTab)?.color || 'bg-blue-700'}
-        />
+      {/* Main content container */}
+      <div className="w-full max-w-5xl">
+        {/* Tabs */}
+        <div className="flex justify-center gap-3 mb-8 flex-wrap">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`px-6 py-2 rounded-xl text-white font-semibold shadow transition-all ${tab.color} ${activeTab === tab.id ? 'ring-4 ring-offset-2 ring-gray-300' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+          {/* Add new tab button */}
+          <button onClick={handleAddTab} className="px-4 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold shadow hover:bg-gray-300 transition-all">+</button>
+        </div>
+        {/* Main grid area */}
+        <div className="bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center border border-gray-200">
+          <TriggerGrid
+            buttons={buttons}
+            onAdd={handleAddButton}
+            onReorder={(newButtons) =>
+              setTabButtons((prev) => ({ ...prev, [activeTab]: newButtons }))
+            }
+            onRenameButton={(id, newLabel) =>
+              setTabButtons((prev) => ({
+                ...prev,
+                [activeTab]: (prev[activeTab] || []).map((btn) =>
+                  btn.id === id ? { ...btn, label: newLabel } : btn
+                ),
+              }))
+            }
+            color={tabs.find(tab => tab.id === activeTab)?.color || 'bg-blue-700'}
+          />
+        </div>
       </div>
     </div>
   );
