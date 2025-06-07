@@ -64,7 +64,7 @@ export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReor
           {/* Add button cell */}
           <button
             onClick={onAdd}
-            className="flex flex-col items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-xl p-6 min-h-[100px] shadow text-4xl text-gray-500 font-bold transition-all"
+            className="flex flex-col items-center justify-center bg-transparent hover:bg-transparent rounded-xl p-6 min-h-[100px] text-6xl text-gray-400 hover:text-gray-600 font-bold transition-all"
             aria-label="Add trigger button"
           >
             +
