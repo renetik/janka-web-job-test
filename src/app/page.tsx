@@ -72,7 +72,12 @@ export default function Dashboard() {
             </button>
           ))}
           {/* Add new tab button */}
-          <button onClick={handleAddTab} className="px-4 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold shadow hover:bg-gray-300 transition-all">+</button>
+          <button 
+            onClick={handleAddTab} 
+            className="px-3 py-1 rounded-xl bg-transparent text-gray-400 hover:text-gray-600 text-5xl font-bold transition-all"
+          >
+            +
+          </button>
         </div>
         {/* Main grid area */}
         <div className="bg-white rounded-2xl shadow p-6 min-h-[400px] flex flex-col items-center border border-gray-200">
