@@ -90,6 +90,7 @@ export default function Dashboard() {
               ),
             }))
           }
+          color={tabs.find(tab => tab.id === activeTab)?.color || 'bg-blue-700'}
         />
       </div>
     </div>

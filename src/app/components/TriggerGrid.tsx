@@ -26,9 +26,10 @@ interface TriggerGridProps {
   onAdd: () => void;
   onReorder: (buttons: TriggerButton[]) => void;
   onRenameButton: (id: number, newLabel: string) => void;
+  color: string;
 }
 
-export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder, onRenameButton }) => {
+export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder, onRenameButton, color }) => {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -51,6 +52,7 @@ export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReor
               button={button}
               index={idx}
               onRename={(newLabel) => onRenameButton(button.id, newLabel)}
+              color={color}
             />
           ))}
           {/* Add button cell */}

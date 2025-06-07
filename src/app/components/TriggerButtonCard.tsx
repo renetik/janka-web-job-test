@@ -7,9 +7,10 @@ interface TriggerButtonCardProps {
   button: TriggerButton;
   index: number;
   onRename: (newLabel: string) => void;
+  color: string;
 }
 
-export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCardProps) {
+export function TriggerButtonCard({ button, index, onRename, color }: TriggerButtonCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: button.id });
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -42,12 +43,12 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
     <div
       ref={setNodeRef}
       style={style}
-      className="flex flex-row items-center justify-between bg-blue-100 rounded-xl min-h-[100px] shadow select-none relative p-0"
+      className={`flex flex-row items-center justify-between ${color} rounded-xl min-h-[100px] shadow select-none relative p-0`}
     >
       <div className="flex-1 flex flex-col items-center justify-center p-6">
         {editing ? (
           <input
-            className="font-semibold text-blue-900 bg-white rounded px-2 py-1 w-full text-center outline-none border border-blue-300 focus:border-blue-500"
+            className="font-semibold text-white bg-white/20 rounded px-2 py-1 w-full text-center outline-none border border-white/30 focus:border-white/50"
             value={value}
             autoFocus
             onChange={e => setValue(e.target.value)}
@@ -57,7 +58,7 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
           />
         ) : (
           <span
-            className="font-semibold text-blue-900 cursor-pointer w-full text-center"
+            className="font-semibold text-white cursor-pointer w-full text-center"
             onClick={() => setEditing(true)}
             title="Click to rename"
           >
@@ -75,7 +76,7 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
       {/* Drag handle on the right */}
       <button
         type="button"
-        className="flex flex-col justify-center items-center px-2 py-4 bg-blue-200 hover:bg-blue-300 rounded-r-xl cursor-grab active:cursor-grabbing transition-colors h-full"
+        className="flex flex-col justify-center items-center px-2 py-4 bg-white/20 hover:bg-white/30 rounded-r-xl cursor-grab active:cursor-grabbing transition-colors h-full"
         style={{ minWidth: 32 }}
         {...attributes}
         {...listeners}
@@ -84,10 +85,10 @@ export function TriggerButtonCard({ button, index, onRename }: TriggerButtonCard
       >
         {/* Vertical dots */}
         <svg width="16" height="48" viewBox="0 0 16 48" fill="none">
-          <circle cx="8" cy="8" r="2" fill="#2563eb" />
-          <circle cx="8" cy="20" r="2" fill="#2563eb" />
-          <circle cx="8" cy="32" r="2" fill="#2563eb" />
-          <circle cx="8" cy="44" r="2" fill="#2563eb" />
+          <circle cx="8" cy="8" r="2" fill="white" />
+          <circle cx="8" cy="20" r="2" fill="white" />
+          <circle cx="8" cy="32" r="2" fill="white" />
+          <circle cx="8" cy="44" r="2" fill="white" />
         </svg>
       </button>
     </div>
