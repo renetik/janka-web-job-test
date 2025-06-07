@@ -7,8 +7,6 @@ const DEFAULT_TABS = [
   { id: 1, label: "Triggers Group 01", color: "bg-blue-700" },
   { id: 2, label: "Triggers Group 02", color: "bg-yellow-400" },
   { id: 3, label: "Triggers Group 03", color: "bg-green-600" },
-  { id: 4, label: "Triggers Group 04", color: "bg-blue-500" },
-  { id: 5, label: "Triggers Group 05", color: "bg-purple-700" },
 ];
 
 export default function Dashboard() {
