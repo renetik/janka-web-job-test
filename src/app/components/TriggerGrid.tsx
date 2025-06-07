@@ -30,7 +30,13 @@ interface TriggerGridProps {
 }
 
 export const TriggerGrid: React.FC<TriggerGridProps> = ({ buttons, onAdd, onReorder, onRenameButton, color }) => {
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // 8px movement required before drag starts
+      },
+    })
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;

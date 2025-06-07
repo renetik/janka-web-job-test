@@ -39,13 +39,27 @@ export function TriggerButtonCard({ button, index, onRename, color }: TriggerBut
     }
   };
 
+  const handleTitleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setEditing(true);
+  };
+
+  const handleActionClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert(`${button.label} clicked`);
+  };
+
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex flex-row items-center justify-between ${color} rounded-xl min-h-[100px] shadow select-none relative p-0`}
+      className={`flex flex-col items-center justify-between ${color} rounded-xl min-h-[100px] shadow select-none relative p-0 cursor-grab active:cursor-grabbing`}
+      {...attributes}
+      {...listeners}
     >
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
+      <div className="flex-1 flex flex-col items-center justify-center p-6 w-full">
         {editing ? (
           <input
             className="font-semibold text-white bg-white/20 rounded px-2 py-1 w-full text-center outline-none border border-white/30 focus:border-white/50"
@@ -55,11 +69,12 @@ export function TriggerButtonCard({ button, index, onRename, color }: TriggerBut
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             maxLength={32}
+            onClick={(e) => e.stopPropagation()}
           />
         ) : (
           <span
             className="font-semibold text-white cursor-pointer w-full text-center"
-            onClick={() => setEditing(true)}
+            onClick={handleTitleClick}
             title="Click to rename"
           >
             {button.label}
@@ -68,29 +83,11 @@ export function TriggerButtonCard({ button, index, onRename, color }: TriggerBut
         {/* Action button below the title */}
         <button
           className="mt-4 px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full shadow text-lg font-bold transition-colors"
-          onClick={() => alert(`${button.label} clicked`)}
+          onClick={handleActionClick}
         >
           {' > > '}
         </button>
       </div>
-      {/* Drag handle on the right */}
-      <button
-        type="button"
-        className="flex flex-col justify-center items-center px-2 py-4 bg-white/20 hover:bg-white/30 rounded-r-xl cursor-grab active:cursor-grabbing transition-colors h-full"
-        style={{ minWidth: 32 }}
-        {...attributes}
-        {...listeners}
-        tabIndex={-1}
-        aria-label="Drag to reorder"
-      >
-        {/* Vertical dots */}
-        <svg width="16" height="48" viewBox="0 0 16 48" fill="none">
-          <circle cx="8" cy="8" r="2" fill="white" />
-          <circle cx="8" cy="20" r="2" fill="white" />
-          <circle cx="8" cy="32" r="2" fill="white" />
-          <circle cx="8" cy="44" r="2" fill="white" />
-        </svg>
-      </button>
     </div>
   );
 } 
